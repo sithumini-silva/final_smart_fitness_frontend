@@ -90,7 +90,8 @@ This frontend communicates with a secure backend API built using **Node.js, Expr
 ---
 
 📸 Screenshots
-    👉 [Click to view the screenshots document] (https://docs.google.com/document/d/1AV8gzH4f-cC35Cwm-HzWBt9i4e2yuM7YYkG-XGAbejU/edit?usp=sharing)
+
+  👉 [Click to view the screenshots document] (https://docs.google.com/document/d/1AV8gzH4f-cC35Cwm-HzWBt9i4e2yuM7YYkG-XGAbejU/edit?usp=sharing)
 
 ---
 
