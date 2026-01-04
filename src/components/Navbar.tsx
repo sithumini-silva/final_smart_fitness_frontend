@@ -1,11 +1,19 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { user, logout } = useAuth();
+
+    const hideNavbarRoutes = ["/login", "/register"]; 
+
+    if (hideNavbarRoutes.includes(location.pathname)) {
+        return null;
+    }
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#0066b2" }}>

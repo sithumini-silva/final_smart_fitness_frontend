@@ -1,6 +1,13 @@
 // src/App.tsx
 import React from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -12,89 +19,94 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
 
 import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
 } from "@mui/material";
 
+
 const App: React.FC = () => {
-    const { isAuthenticated, logout, user } = useAuth();
-    const navigate = useNavigate();
+  const { isAuthenticated, logout, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    return (
-        <>
-            {/* 🔵 NAVBAR */}
-            <AppBar position="static" color="primary">
-                <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography
-                        variant="h6"
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => navigate("/dashboard")}
-                    >
-                        Smart Fitness
-                    </Typography>
+  //Routes without Navbar
+  const hideNavbarRoutes = ["/login", "/register"];
 
-                    {isAuthenticated && (
-                        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                            {/* 👉 Meal Plan Menu */}
-                            <Button color="inherit" onClick={() => navigate("/dashboard")}>
-                                Meal Plans
-                            </Button>
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
-                            <Button color="inherit" onClick={() => navigate("/ai-generate")}>
-                                Generate Meal Plan
-                            </Button>
+  return (
+    <>
+      {/* NAVBAR (conditionally hidden) */}
+      {!shouldHideNavbar && (
+        <AppBar position="static" color="primary">
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography
+              variant="h6"
+              sx={{ cursor: "pointer" }}
+              onClick={() => navigate("/dashboard")}
+            >
+              Smart Fitness
+            </Typography>
 
-                            {/* 👉 Workout Menu */}
-                            <Button
-                                color="inherit"
-                                onClick={() => navigate("/workout-dashboard")}
-                            >
-                                Workout Plans
-                            </Button>
+            {isAuthenticated && (
+              <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                <Button color="inherit" onClick={() => navigate("/dashboard")}>
+                  Meal Plans
+                </Button>
 
-                            <Button
-                                color="inherit"
-                                onClick={() => navigate("/workout-generate")}
-                            >
-                                Generate Workout
-                            </Button>
+                <Button color="inherit" onClick={() => navigate("/ai-generate")}>
+                  Generate Meal Plan
+                </Button>
 
-                            {/* User */}
-                            <Typography variant="body2">
-                                {user?.fullname} ({user?.role})
-                            </Typography>
+                <Button
+                  color="inherit"
+                  onClick={() => navigate("/workout-dashboard")}
+                >
+                  Workout Plans
+                </Button>
 
-                            {/* Logout */}
-                            <Button color="inherit" onClick={logout}>
-                                Logout
-                            </Button>
-                        </Box>
-                    )}
-                </Toolbar>
-            </AppBar>
+                <Button
+                  color="inherit"
+                  onClick={() => navigate("/workout-generate")}
+                >
+                  Generate Workout
+                </Button>
 
-            {/* ROUTES */}
-            <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Typography variant="body2">
+                  {user?.fullname} ({user?.role || "User"})
+                </Typography>
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Button color="inherit" onClick={logout}>
+                  Logout
+                </Button>
+              </Box>
+            )}
+          </Toolbar>
+        </AppBar>
+      )}
 
-                {/* Protected Pages */}
-                <Route element={<ProtectedRoute />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/ai-generate" element={<AIGenerator />} />
-                    <Route path="/workout-generate" element={<WorkoutGenerator />} />
-                    <Route path="/workout-dashboard" element={<WorkoutDashboard />} />
-                </Route>
+      {/* ROUTES */}
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-                <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-        </>
-    );
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Protected Pages */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/ai-generate" element={<AIGenerator />} />
+          <Route path="/workout-generate" element={<WorkoutGenerator />} />
+          <Route path="/workout-dashboard" element={<WorkoutDashboard />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </>
+  );
 };
 
 export default App;

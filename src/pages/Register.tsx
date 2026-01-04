@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Container, TextField, Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Card, CardContent, TextField, Button, Typography } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 import { toast } from "react-toastify";
 
@@ -11,6 +11,7 @@ const Register = () => {
     const [weight, setWeight] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -19,50 +20,204 @@ const Register = () => {
             toast.error("Passwords do not match.");
             return;
         }
-
+        setLoading(true);
         try {
             await axiosClient.post("/auth/register", {
                 fullname,
                 email,
                 password,
                 height: Number(height),
-                weight: Number(weight)
+                weight: Number(weight),
             });
-
             toast.success("Registration successful! Please log in.");
             navigate("/login");
-
         } catch (err: any) {
             toast.error(err.response?.data?.message || "Registration failed.");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <Container sx={{ mt: 4, maxWidth: 400 }}>
-            <Typography variant="h4" gutterBottom>Register</Typography>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                backgroundImage: `url('/login-bg.jpg')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                position: "relative",
+                overflow: "hidden",
+            }}
+        >
+            {/* Dark Overlay */}
+            <Box
+                sx={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundColor: "rgba(0,0,0,0.75)",
+                }}
+            />
 
-            <TextField fullWidth label="Full Name" sx={{ mb: 2 }} value={fullname}
-                       onChange={(e) => setFullname(e.target.value)} />
+            {/* Red Diagonal Shapes */}
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: "-150px",
+                    width: "350px",
+                    height: "100%",
+                    backgroundColor: "#e50914",
+                    transform: "skewX(-20deg)",
+                    opacity: 0.5,
+                }}
+            />
+            <Box
+                sx={{
+                    position: "absolute",
+                    left: "-100px",
+                    width: "350px",
+                    height: "100%",
+                    backgroundColor: "#e50914",
+                    transform: "skewX(-20deg)",
+                    opacity: 0.5,
+                }}
+            />
 
-            <TextField fullWidth label="Email" sx={{ mb: 2 }} value={email}
-                       onChange={(e) => setEmail(e.target.value)} />
+            {/* Registration Card */}
+            <Box
+                sx={{
+                    position: "relative",
+                    zIndex: 2,
+                    minHeight: "100vh",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <Card
+                    sx={{
+                        width: 480,
+                        background: "rgba(255,255,255,0.08)",
+                        backdropFilter: "blur(12px)",
+                        borderRadius: 3,
+                        boxShadow: "0 15px 40px rgba(0,0,0,0.8)",
+                    }}
+                >
+                    <CardContent>
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            sx={{ color: "#fff", fontWeight: "bold", mb: 1 }}
+                        >
+                            Create Account
+                        </Typography>
+                        <Typography
+                            align="center"
+                            sx={{ fontSize: "15px", color: "#a68d8dff", fontStyle: "italic", mb: 2 }}
+                        >
+                            Fill the form to access your account
+                        </Typography>
 
-            <TextField fullWidth label="Height (cm)" sx={{ mb: 2 }} value={height}
-                       onChange={(e) => setHeight(e.target.value)} />
+                        <form autoComplete="off">
+                            {/* Hidden dummy inputs to prevent browser autofill */}
+                            <input type="text" name="fakeusernameremembered" style={{ display: "none" }} />
+                            <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />
 
-            <TextField fullWidth label="Weight (kg)" sx={{ mb: 2 }} value={weight}
-                       onChange={(e) => setWeight(e.target.value)} />
+                            <TextField
+                                fullWidth
+                                label="Full Name"
+                                margin="normal"
+                                value={fullname}
+                                onChange={(e) => setFullname(e.target.value)}
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
 
-            <TextField fullWidth type="password" label="Password" sx={{ mb: 2 }} value={password}
-                       onChange={(e) => setPassword(e.target.value)} />
+                            <TextField
+                                fullWidth
+                                label="Email"
+                                margin="normal"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                autoComplete="new-email"
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
 
-            <TextField fullWidth type="password" label="Confirm Password" sx={{ mb: 2 }} value={confirm}
-                       onChange={(e) => setConfirm(e.target.value)} />
+                            <TextField
+                                fullWidth
+                                label="Height (cm)"
+                                margin="normal"
+                                value={height}
+                                onChange={(e) => setHeight(e.target.value)}
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
 
-            <Button fullWidth variant="contained" onClick={handleRegister}>
-                Register
-            </Button>
-        </Container>
+                            <TextField
+                                fullWidth
+                                label="Weight (kg)"
+                                margin="normal"
+                                value={weight}
+                                onChange={(e) => setWeight(e.target.value)}
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
+
+                            <TextField
+                                fullWidth
+                                label="Password"
+                                type="password"
+                                margin="normal"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
+
+                            <TextField
+                                fullWidth
+                                label="Confirm Password"
+                                type="password"
+                                margin="normal"
+                                value={confirm}
+                                onChange={(e) => setConfirm(e.target.value)}
+                                autoComplete="new-password"
+                                InputLabelProps={{ style: { color: "#ccc" } }}
+                                InputProps={{ style: { color: "#fff" } }}
+                            />
+
+                            <Button
+                                fullWidth
+                                sx={{
+                                    mt: 3,
+                                    py: 1.2,
+                                    fontWeight: "bold",
+                                    backgroundColor: "#fff",
+                                    color: "#000",
+                                    "&:hover": { backgroundColor: "#e50914", color: "#fff" },
+                                }}
+                                onClick={handleRegister}
+                                disabled={loading}
+                            >
+                                {loading ? "Registering..." : "REGISTER"}
+                            </Button>
+                        </form>
+
+                        <Typography align="center" sx={{ mt: 2, color: "#ccc", fontSize: 14 }}>
+                            Already have an account?{" "}
+                            <Link to="/login" style={{ color: "#e50914", textDecoration: "none" }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = "#f1f493ff")}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = "#e50914")}
+                            >
+                                Login
+                            </Link>
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>
+        </Box>
     );
 };
 
