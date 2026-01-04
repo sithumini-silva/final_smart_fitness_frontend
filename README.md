@@ -52,19 +52,23 @@ This frontend communicates with a secure backend API built using **Node.js, Expr
 ## ⚙️ Installation & Setup
 
 1️⃣ Clone the Repository
-    - git clone <[frontend-repo-url](https://github.com/sithumini-silva/final_smart_fitness_frontend.git)>
-      cd frontend
+
+- git clone <[frontend-repo-url](https://github.com/sithumini-silva/final_smart_fitness_frontend.git)>
+  cd frontend
       
 2️⃣ Install Dependencies
-    - npm install
+
+   - npm install
     
 3️⃣ Environment Variables
-    - Create a .env file in the root directory:
+
+   - Create a .env file in the root directory:
         VITE_API_BASE_URL=http://localhost:5000/api
         
 4️⃣ Run the Application
-    - npm run dev
-    - The frontend will run on: http://localhost:5174
+
+   - npm run dev
+   - The frontend will run on: http://localhost:5174
 
 ---
 
