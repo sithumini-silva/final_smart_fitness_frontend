@@ -28,6 +28,7 @@ This frontend communicates with a secure backend API built using Node.js, Expres
 
 
 📂 Folder Structure
+
 1️⃣ Clone the Repository
     - git clone <frontend-repo-url>
       cd frontend
@@ -43,8 +44,6 @@ This frontend communicates with a secure backend API built using Node.js, Expres
     - npm run dev
     - The frontend will run on: http://localhost:5174
 
-
-🌐 Deployment
 
 
 📸 Screenshots
