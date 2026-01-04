@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+Smart Fitness – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📌 Project Overview
+Smart Fitness is an AI-powered fitness web application frontend developed using React + TypeScript  
+It provides users with a modern and responsive interface to generate, view, save, and manage AI-generated meal plans and workout plans
 
-Currently, two official plugins are available:
+This frontend communicates with a secure backend API built using Node.js, Express, and MongoDB Atlas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Features
+- User Registration & Login (JWT Authentication)
+- AI Meal Plan Generation
+- AI Workout Plan Generation
+- View Saved Meal & Workout Plans
+- Delete Saved Plans
+- Profile View
+- Responsive UI Design
+- Protected Routes
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🛠️ Technologies Used
+- React
+- TypeScript
+- Material UI (MUI)
+- React Router DOM
+- Axios
+- JWT Authentication
+- Vite / Create React App
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+📂 Folder Structure
+1️⃣ Clone the Repository
+    - git clone <frontend-repo-url>
+      cd frontend
+2️⃣ Install Dependencies
+    - npm install
+3️⃣ Environment Variables
+    - Create a .env file in the root directory:
+        VITE_API_BASE_URL=http://localhost:5000/api
+4️⃣ Run the Application
+    - npm run dev
+    - The frontend will run on: http://localhost:5174
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🌐 Deployment
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+📸 Screenshots
+    👉 [Click to view the screenshots document] (https://docs.google.com/document/d/1AV8gzH4f-cC35Cwm-HzWBt9i4e2yuM7YYkG-XGAbejU/edit?usp=sharing)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+👩‍💻 Author
+    - Sithumini Chathurya
+    - GDSE 71 Batch
