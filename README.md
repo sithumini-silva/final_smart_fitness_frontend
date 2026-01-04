@@ -31,11 +31,14 @@ This frontend communicates with a secure backend API built using Node.js, Expres
 1️⃣ Clone the Repository
     - git clone <frontend-repo-url>
       cd frontend
+      
 2️⃣ Install Dependencies
     - npm install
+    
 3️⃣ Environment Variables
     - Create a .env file in the root directory:
         VITE_API_BASE_URL=http://localhost:5000/api
+        
 4️⃣ Run the Application
     - npm run dev
     - The frontend will run on: http://localhost:5174
